@@ -1,5 +1,7 @@
 # LHF-5: Training-free likelihood scoring for real vs generated driving video
 
+**STATUS: CLOSED (2026-10-20). The novelty gate was not met; see [results/CLOSEOUT.md](results/CLOSEOUT.md).**
+
 > **Name (2026-10-20):** our method's working name is **DriveLL** (placeholder). It builds on **STALL**, Ben Hayun, Betser, Levi, Kassel & Gilboa, *Training-free Detection of Generated Videos via Spatial-Temporal Likelihoods*, CVPR 2026, [arXiv:2603.15026](https://arxiv.org/abs/2603.15026), which is the base method: Gaussian likelihoods of whitened DINOv3 frame features and frame differences, calibrated on real video only. DriveLL differs in using patch tokens with Ledoit-Wolf covariance, an in-domain nuScenes fit, mean Mahalanobis plus a z-sum, and its use as a per-clip evaluation metric for driving world models. Code paths (`src/stall.py`, the `stall` config key) keep their old names for reproducibility. In earlier result files, "STALL joint" means the DriveLL joint score. The STALL-original baseline is in `src/stall_orig/` and `results/block7b/`. See `docs/related_work.md`.
 
 ## Hypothesis
