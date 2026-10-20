@@ -1,0 +1,346 @@
+{
+ "vits16|cls|nusc|maxmin|d10=False": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.5824,
+    "spatial": 0.534,
+    "temporal": 0.5752,
+    "mean_gen_score": 0.017
+   },
+   "dreamforge": {
+    "joint": 0.6328,
+    "spatial": 0.516,
+    "temporal": 0.6312,
+    "mean_gen_score": 0.013550000000000001
+   },
+   "xscene": {
+    "joint": 0.5582,
+    "spatial": 0.5096,
+    "temporal": 0.5448,
+    "mean_gen_score": 0.0233
+   },
+   "drivedreamer2": {
+    "joint": 0.546,
+    "spatial": 0.5484,
+    "temporal": 0.5404,
+    "mean_gen_score": 0.0231
+   },
+   "opendwm": {
+    "joint": 0.5458,
+    "spatial": 0.5192,
+    "temporal": 0.5448000000000001,
+    "mean_gen_score": 0.027800000000000002
+   },
+   "dist4d": {
+    "joint": 0.5559999999999999,
+    "spatial": 0.5104,
+    "temporal": 0.5572,
+    "mean_gen_score": 0.01815
+   }
+  },
+  "rho_auroc_vs_fvd": 0.7714285714285715,
+  "rho_meanscore_vs_fvd": 0.5428571428571429
+ },
+ "vits16|cls|nusc|maxmin|d10=True": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.5884,
+    "spatial": 0.5336000000000001,
+    "temporal": 0.5768,
+    "mean_gen_score": 0.013049999999999999
+   },
+   "dreamforge": {
+    "joint": 0.6348,
+    "spatial": 0.5144,
+    "temporal": 0.6304,
+    "mean_gen_score": 0.010550000000000002
+   },
+   "xscene": {
+    "joint": 0.5556,
+    "spatial": 0.5056,
+    "temporal": 0.5416,
+    "mean_gen_score": 0.02145
+   },
+   "drivedreamer2": {
+    "joint": 0.5556,
+    "spatial": 0.5484,
+    "temporal": 0.5496,
+    "mean_gen_score": 0.01825
+   },
+   "opendwm": {
+    "joint": 0.5464,
+    "spatial": 0.5204000000000001,
+    "temporal": 0.5356000000000001,
+    "mean_gen_score": 0.0225
+   },
+   "dist4d": {
+    "joint": 0.5609999999999999,
+    "spatial": 0.5092000000000001,
+    "temporal": 0.5576,
+    "mean_gen_score": 0.014650000000000002
+   }
+  },
+  "rho_auroc_vs_fvd": 0.5797710356524485,
+  "rho_meanscore_vs_fvd": 0.5428571428571429
+ },
+ "vits16|cls|nusc|mean|d10=False": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.607,
+    "spatial": 0.5840000000000001,
+    "temporal": 0.5972,
+    "mean_gen_score": 0.01705
+   },
+   "dreamforge": {
+    "joint": 0.6566000000000001,
+    "spatial": 0.5404,
+    "temporal": 0.6432,
+    "mean_gen_score": 0.016900000000000002
+   },
+   "xscene": {
+    "joint": 0.5660000000000001,
+    "spatial": 0.5396,
+    "temporal": 0.5564,
+    "mean_gen_score": 0.0262
+   },
+   "drivedreamer2": {
+    "joint": 0.572,
+    "spatial": 0.5791999999999999,
+    "temporal": 0.56,
+    "mean_gen_score": 0.030350000000000002
+   },
+   "opendwm": {
+    "joint": 0.5422,
+    "spatial": 0.5264,
+    "temporal": 0.54,
+    "mean_gen_score": 0.0333
+   },
+   "dist4d": {
+    "joint": 0.579,
+    "spatial": 0.514,
+    "temporal": 0.574,
+    "mean_gen_score": 0.0243
+   }
+  },
+  "rho_auroc_vs_fvd": 0.5428571428571429,
+  "rho_meanscore_vs_fvd": 0.6
+ },
+ "vits16|cls|nusc|mean|d10=True": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.6054,
+    "spatial": 0.5851999999999999,
+    "temporal": 0.5943999999999999,
+    "mean_gen_score": 0.014300000000000002
+   },
+   "dreamforge": {
+    "joint": 0.663,
+    "spatial": 0.5416,
+    "temporal": 0.6496,
+    "mean_gen_score": 0.0134
+   },
+   "xscene": {
+    "joint": 0.5744,
+    "spatial": 0.5384000000000001,
+    "temporal": 0.5576,
+    "mean_gen_score": 0.022350000000000002
+   },
+   "drivedreamer2": {
+    "joint": 0.5742,
+    "spatial": 0.5776,
+    "temporal": 0.5640000000000001,
+    "mean_gen_score": 0.026600000000000002
+   },
+   "opendwm": {
+    "joint": 0.5336000000000001,
+    "spatial": 0.5276,
+    "temporal": 0.5319999999999999,
+    "mean_gen_score": 0.029749999999999995
+   },
+   "dist4d": {
+    "joint": 0.5756,
+    "spatial": 0.514,
+    "temporal": 0.5756,
+    "mean_gen_score": 0.020849999999999994
+   }
+  },
+  "rho_auroc_vs_fvd": 0.6,
+  "rho_meanscore_vs_fvd": 0.6
+ },
+ "vits16|pmean|nusc|maxmin|d10=False": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.4238,
+    "spatial": 0.5647999999999999,
+    "temporal": 0.4316,
+    "mean_gen_score": 0.038950000000000005
+   },
+   "dreamforge": {
+    "joint": 0.48860000000000003,
+    "spatial": 0.5396,
+    "temporal": 0.4948,
+    "mean_gen_score": 0.027600000000000003
+   },
+   "xscene": {
+    "joint": 0.49300000000000005,
+    "spatial": 0.5496000000000001,
+    "temporal": 0.4572,
+    "mean_gen_score": 0.02805
+   },
+   "drivedreamer2": {
+    "joint": 0.535,
+    "spatial": 0.5968,
+    "temporal": 0.5668,
+    "mean_gen_score": 0.0209
+   },
+   "opendwm": {
+    "joint": 0.53,
+    "spatial": 0.5531999999999999,
+    "temporal": 0.5347999999999999,
+    "mean_gen_score": 0.025099999999999997
+   },
+   "dist4d": {
+    "joint": 0.4854,
+    "spatial": 0.5396000000000001,
+    "temporal": 0.49239999999999995,
+    "mean_gen_score": 0.03195
+   }
+  },
+  "rho_auroc_vs_fvd": -0.3714285714285715,
+  "rho_meanscore_vs_fvd": -0.3142857142857143
+ },
+ "vits16|pmean|nusc|maxmin|d10=True": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.433,
+    "spatial": 0.5628,
+    "temporal": 0.43839999999999996,
+    "mean_gen_score": 0.0354
+   },
+   "dreamforge": {
+    "joint": 0.49240000000000006,
+    "spatial": 0.5396,
+    "temporal": 0.4935999999999999,
+    "mean_gen_score": 0.023850000000000007
+   },
+   "xscene": {
+    "joint": 0.5032,
+    "spatial": 0.5488,
+    "temporal": 0.4808,
+    "mean_gen_score": 0.02565
+   },
+   "drivedreamer2": {
+    "joint": 0.5652,
+    "spatial": 0.596,
+    "temporal": 0.5956,
+    "mean_gen_score": 0.01555
+   },
+   "opendwm": {
+    "joint": 0.5622,
+    "spatial": 0.5544,
+    "temporal": 0.558,
+    "mean_gen_score": 0.02175
+   },
+   "dist4d": {
+    "joint": 0.5094000000000001,
+    "spatial": 0.5408,
+    "temporal": 0.5144,
+    "mean_gen_score": 0.026300000000000004
+   }
+  },
+  "rho_auroc_vs_fvd": -0.7714285714285715,
+  "rho_meanscore_vs_fvd": -0.3142857142857143
+ },
+ "vits16|pmean|nusc|mean|d10=False": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.4748,
+    "spatial": 0.6012,
+    "temporal": 0.4768,
+    "mean_gen_score": 0.04020000000000001
+   },
+   "dreamforge": {
+    "joint": 0.5316,
+    "spatial": 0.5588,
+    "temporal": 0.5404,
+    "mean_gen_score": 0.0302
+   },
+   "xscene": {
+    "joint": 0.48360000000000003,
+    "spatial": 0.5808000000000001,
+    "temporal": 0.478,
+    "mean_gen_score": 0.035699999999999996
+   },
+   "drivedreamer2": {
+    "joint": 0.559,
+    "spatial": 0.6616000000000001,
+    "temporal": 0.5768,
+    "mean_gen_score": 0.03335
+   },
+   "opendwm": {
+    "joint": 0.5198,
+    "spatial": 0.5655999999999999,
+    "temporal": 0.5224,
+    "mean_gen_score": 0.045799999999999993
+   },
+   "dist4d": {
+    "joint": 0.4644,
+    "spatial": 0.5564,
+    "temporal": 0.4688,
+    "mean_gen_score": 0.0467
+   }
+  },
+  "rho_auroc_vs_fvd": 0.14285714285714288,
+  "rho_meanscore_vs_fvd": 0.6
+ },
+ "vits16|pmean|nusc|mean|d10=True": {
+  "n_per_arm": 50,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.4718,
+    "spatial": 0.6027999999999999,
+    "temporal": 0.47719999999999996,
+    "mean_gen_score": 0.03415
+   },
+   "dreamforge": {
+    "joint": 0.5334000000000001,
+    "spatial": 0.5579999999999999,
+    "temporal": 0.5484,
+    "mean_gen_score": 0.024349999999999997
+   },
+   "xscene": {
+    "joint": 0.4932,
+    "spatial": 0.5812,
+    "temporal": 0.4808,
+    "mean_gen_score": 0.03125
+   },
+   "drivedreamer2": {
+    "joint": 0.5592,
+    "spatial": 0.6588,
+    "temporal": 0.5856,
+    "mean_gen_score": 0.028450000000000003
+   },
+   "opendwm": {
+    "joint": 0.5176000000000001,
+    "spatial": 0.5648000000000001,
+    "temporal": 0.5247999999999999,
+    "mean_gen_score": 0.0404
+   },
+   "dist4d": {
+    "joint": 0.4598,
+    "spatial": 0.5544,
+    "temporal": 0.47319999999999995,
+    "mean_gen_score": 0.040600000000000004
+   }
+  },
+  "rho_auroc_vs_fvd": 0.14285714285714288,
+  "rho_meanscore_vs_fvd": 0.6
+ }
+}

@@ -18,5 +18,5 @@ Others checked: FVMD (arXiv:2407.16124) and JEDi (arXiv:2410.05203) ran human st
   1. Pair-level agreement: % of pairs where the clip with the lower (more real) metric score wins the human majority. Report with a bootstrap CI over scenes and compare against chance (50%) and inter-rater agreement (split-half ceiling).
   2. Per-clip Bradley–Terry (or TrueSkill) realism scores. Then compute Spearman/Kendall vs our score, within-scene and pooled, with a scene-cluster bootstrap.
   3. Generator level: human gen-vs-real fool rate and BT means vs our mean score and WorldLens FVD (Spearman, n=6, reported descriptively).
-  4. Baselines on the same pairs: per-clip FID-style or I3D distance to the gt clip, our spatial-only and temporal-only scores, and the STALL original recipe.
-- **Pre-registration:** primary = within-scene gen-vs-gen pair agreement of our joint score (DINOv3, amended protocol). Success if it is above 60% and the bootstrap CI excludes 50%.
+  4. Baselines on the same pairs: per-clip FID-style or I3D distance to the gt clip, our spatial-only and temporal-only scores, and the original STALL recipe (arXiv:2603.15026).
+- **Pre-registration:** primary = within-scene gen-vs-gen pair agreement of our DriveLL joint score (DINOv3, amended protocol). Success if it is above 60% and the bootstrap CI excludes 50%.
