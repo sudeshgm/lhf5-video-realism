@@ -1,8 +1,22 @@
-backbone: facebook/dinov3-vits16-pretrain-lvd1689m   # GATED on HF, access pending
-backbone_fallback_info_only: facebook/dinov2-small
-rerun_backbone_if_chance: facebook/dinov2-base
+backbone: dinov3_s16            # facebook/dinov3-vits16-pretrain-lvd1689m - PRIMARY, gated (HF 401), awaiting token
+rerun_backbone_if_chance: dinov2_b14
+dryrun_backbone_plumbing_only: dinov2_s14
 frames: 16
+fps: 12
 img_size: 224
-target_rate_hz: 6
-real: {source: nuscenes, channel: CAM_FRONT, n_fit: 500, n_heldout: 200}
-gen: {source: nvidia/PhysicalAI-Autonomous-Vehicle-Cosmos-Drive-Dreams, subset: cosmos_synthetic/single_view, stride: 4}
+reencode: scripts/reencode.sh   # 456x256, libx264 High CRF23 preset medium yuv420p
+worldbench:
+  repo: worldbench/videogen
+  revision: 63217f288a68ba2097d84c3b160dbd43f45dcacb
+  camera: CAM_FRONT
+  seed_dir: gen0
+  real_heldout: nuscenes/gt/video_submisson          # 150 clips (deviation from 200, see README)
+  gen:
+    magicdrive: nuscenes/magicdrive/video_submisson    # 150
+    drivedreamer2: nuscenes/drivedreamer2/video_submission  # 150
+  token_map_source: data_preparation/nuscenes_mmdet3d_2/nuscenes_infos_temporal_val_3keyframes.pkl
+real_fit:
+  source: nuscenes v1.0-trainval TRAIN split, 500 scenes x 1 window (first keyframe, 16 consecutive CAM_FRONT)  # ON HOLD
+  encode: JPEG -> 1600x900 H.264 CRF18 -> reencode.sh
+  dryrun_source: v1.0-mini scenes not in gt (6 scenes, 85 windows)   # PLUMBING ONLY
+stall: {cov: ledoit_wolf, max_tokens: 60000, per_position: false, joint: z_spatial+z_temporal (fit-set z-stats), bootstrap: 1000}

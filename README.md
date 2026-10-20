@@ -20,3 +20,8 @@ DINOv2 ViT-S/14 is the pre-registered alternative backbone; any switch must be e
 
 ## Layout
 src/ (features, data loaders) · scripts/ (backbone_check, smoke) · configs/ · results/
+
+## Logged deviations from pre-registration
+- **2026-10-20 (Block 2):** real held-out = **150** worldbench `gt` clips (one per nuScenes val scene), not 200. Reason: the worldbench/videogen gt set covers exactly 150 val scenes, and nuScenes trainval is on hold. The stop-rule thresholds are unchanged.
+- **2026-10-20:** clips are 16 frames at **12 fps** (about 1.25 s) to match the generators, replacing the earlier "~6 Hz". All arms go through `scripts/reencode.sh` (456x256, H.264 CRF 23).
+- Gen source: `worldbench/videogen` (MagicDrive, DriveDreamer-2; gen0, 150 clips each), with the HF revision pinned in `configs/exp_m1.yaml`.

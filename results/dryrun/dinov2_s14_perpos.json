@@ -1,0 +1,74 @@
+{
+ "label": "PLUMBING ONLY - DINOv2-S/14 (not pre-registered backbone); fit=85 windows from 6 v1.0-mini scenes not in gt",
+ "backbone": "dinov2_s14",
+ "model_id": "facebook/dinov2-small",
+ "per_position": true,
+ "n_fit": 85,
+ "n_real": 150,
+ "feat_shape": [
+  16,
+  256,
+  384
+ ],
+ "lw_shrinkage": {
+  "spatial": 0.0009833310453772482,
+  "temporal": 0.005664273935785016
+ },
+ "gen": {
+  "magicdrive": {
+   "n_gen": 150,
+   "spatial": {
+    "auroc": 0.5648,
+    "ci95": [
+     0.498,
+     0.6306
+    ],
+    "verdict": "near-chance"
+   },
+   "temporal": {
+    "auroc": 0.8601,
+    "ci95": [
+     0.8125,
+     0.9029
+    ],
+    "verdict": "alive"
+   },
+   "joint": {
+    "auroc": 0.8009,
+    "ci95": [
+     0.744,
+     0.8541
+    ],
+    "verdict": "alive"
+   }
+  },
+  "drivedreamer2": {
+   "n_gen": 150,
+   "spatial": {
+    "auroc": 0.5517,
+    "ci95": [
+     0.4867,
+     0.6191
+    ],
+    "verdict": "near-chance"
+   },
+   "temporal": {
+    "auroc": 0.524,
+    "ci95": [
+     0.458,
+     0.5869
+    ],
+    "verdict": "near-chance"
+   },
+   "joint": {
+    "auroc": 0.5626,
+    "ci95": [
+     0.4999,
+     0.6309
+    ],
+    "verdict": "near-chance"
+   }
+  }
+ },
+ "elapsed_s": 46.1
+}
