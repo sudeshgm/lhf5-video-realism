@@ -1,0 +1,61 @@
+{
+ "source": "WorldLens (Liang et al., CVPR 2026) Table 1, G.7 Perceptual Discrepancy = I3D FVD between real and generated; arXiv 2512.10958v2 https://arxiv.org/html/2512.10958v2 ; benchmark data = worldbench/videogen (same sample pool; their FVD is on their multi-view protocol, not our CAM_FRONT re-encode)",
+ "fvd_worldlens_G7": {
+  "magicdrive": 222.0,
+  "dreamforge": 189.76,
+  "drivedreamer2": 127.07,
+  "opendwm": 90.42,
+  "dist4d": 58.08,
+  "xscene": 179.74
+ },
+ "real_gt_mean_joint": 0.7666376864794804,
+ "table": [
+  {
+   "gen": "magicdrive",
+   "mean_clip_joint": 2.692,
+   "joint_auroc": 0.804,
+   "fvd": 222.0
+  },
+  {
+   "gen": "dreamforge",
+   "mean_clip_joint": 1.941,
+   "joint_auroc": 0.7234,
+   "fvd": 189.76
+  },
+  {
+   "gen": "xscene",
+   "mean_clip_joint": 1.754,
+   "joint_auroc": 0.7245,
+   "fvd": 179.74
+  },
+  {
+   "gen": "drivedreamer2",
+   "mean_clip_joint": 1.492,
+   "joint_auroc": 0.6177,
+   "fvd": 127.07
+  },
+  {
+   "gen": "opendwm",
+   "mean_clip_joint": 1.252,
+   "joint_auroc": 0.5659,
+   "fvd": 90.42
+  },
+  {
+   "gen": "dist4d",
+   "mean_clip_joint": 1.107,
+   "joint_auroc": 0.5681,
+   "fvd": 58.08
+  }
+ ],
+ "spearman_meanjoint_vs_fvd": {
+  "rho": 1.0,
+  "p": 0.0,
+  "n": 6
+ },
+ "spearman_auroc_vs_fvd": {
+  "rho": 0.886,
+  "p": 0.019,
+  "n": 6
+ },
+ "other_published_fvd_not_used": "Per-paper nuScenes FVDs use heterogeneous protocols (e.g. DriveDreamer-2 55.7 / MagicDrive 217.9 / DreamForge 209.9 / X-Scene 179.7 from the X-Scene and DD2 papers); not mixed into the Spearman. No per-paper OpenDWM nuScenes FVD found."
+}
