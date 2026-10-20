@@ -22,3 +22,13 @@ def test_temporal_detects_dynamics():
     assert auroc_ci(a["temporal"], b["temporal"], n_boot=100)[0] < 0.1 or auroc_ci(a["temporal"], b["temporal"], n_boot=100)[0] > 0.9
 if __name__ == "__main__":
     print("shift0.5", run(0.5), "shift0.5 pp", run(0.5, True)); print("null", run(0.0), "null pp", run(0.0, True))
+def test_dedupe_removes_duplicate_artifact():
+    # real-like clips with one duplicated frame; dedupe should remove the zero-delta and make them match a clean fit
+    r = np.random.default_rng(5); clean = clips(60, 0, 0)
+    dup = []
+    for c in clips(40, 0, 1):
+        c = c.copy(); c[10] = c[9]; dup.append(c)
+    keep = [np.r_[np.ones(10, bool), [False], np.ones(5, bool)] for _ in dup]
+    m = STALL().fit(clean)
+    plain = m.scores(dup)["temporal"]; dd = m.scores(dup, keep)["temporal"]; ref = m.scores(clips(40, 0, 2))["temporal"]
+    assert abs(auroc_ci(ref, dd, n_boot=50)[0] - 0.5) < 0.2
