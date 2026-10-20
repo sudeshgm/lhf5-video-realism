@@ -18,11 +18,22 @@ class Gauss:
     """Ledoit-Wolf Gaussian over token vectors. per_position: mean per patch index n, shared covariance."""
     def __init__(self, per_position=False, max_tokens=60000, seed=0):
         self.pp, self.max, self.rng = per_position, max_tokens, np.random.default_rng(seed)
-    def fit(self, clips):  # list of [T,N,D]
-        X = np.concatenate(clips, 0).astype(np.float64)     # [sum T_i, N, D]; clips may differ in T (dedupe)
-        self.mu = X.mean(0) if self.pp else X.reshape(-1, X.shape[-1]).mean(0)  # [N,D] or [D]
-        R = (X - self.mu).reshape(-1, X.shape[-1])
-        if len(R) > self.max: R = R[self.rng.choice(len(R), self.max, replace=False)]
+    def fit(self, clips):  # list of [T_i,N,D]; memory-safe (streaming mean, per-clip token subsample)
+        D = clips[0].shape[-1]; n_tok = sum(c.shape[0] * c.shape[1] for c in clips)
+        if self.pp:
+            acc = np.zeros(clips[0].shape[1:], np.float64); cnt = 0
+            for c in clips: acc += c.sum(0, dtype=np.float64); cnt += c.shape[0]
+            self.mu = acc / cnt
+        else:
+            acc = np.zeros(D, np.float64)
+            for c in clips: acc += c.reshape(-1, D).sum(0, dtype=np.float64)
+            self.mu = acc / n_tok
+        frac = min(1.0, self.max / n_tok); parts = []
+        for c in clips:
+            r = (c.astype(np.float64) - self.mu).reshape(-1, D)
+            k = len(r) if frac >= 1 else max(1, int(round(len(r) * frac)))
+            parts.append(r if k == len(r) else r[self.rng.choice(len(r), k, replace=False)])
+        R = np.concatenate(parts)
         lw = LedoitWolf(assume_centered=True).fit(R); self.shrinkage = float(lw.shrinkage_)
         self.P = lw.precision_; return self
     def score(self, x):  # [T,N,D] -> mean squared Mahalanobis

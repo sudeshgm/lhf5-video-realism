@@ -1,0 +1,106 @@
+{
+ "label": "REAL RUN dinov3_s16 fitraw_primary",
+ "backbone": "dinov3_s16",
+ "model_id": "facebook/dinov3-vits16-pretrain-lvd1689m",
+ "per_position": false,
+ "dedupe": false,
+ "drop_pos10": true,
+ "n_fit": 500,
+ "n_real": 150,
+ "feat_shape": [
+  16,
+  196,
+  384
+ ],
+ "lw_shrinkage": {
+  "spatial": 0.0003903180008155978,
+  "temporal": 0.011648199877014282
+ },
+ "gen": {
+  "magicdrive": {
+   "n_gen": 150,
+   "spatial": {
+    "auroc": 0.6304,
+    "ci95": [
+     0.566,
+     0.6956
+    ],
+    "verdict": "weak"
+   },
+   "temporal": {
+    "auroc": 0.8441,
+    "ci95": [
+     0.7961,
+     0.8881
+    ],
+    "verdict": "alive"
+   },
+   "joint": {
+    "auroc": 0.8035,
+    "ci95": [
+     0.7466,
+     0.8558
+    ],
+    "verdict": "alive"
+   },
+   "shortcut_nrepeats": {
+    "auroc": 1.0,
+    "ci95": [
+     1.0,
+     1.0
+    ]
+   },
+   "shortcut_nrepeats_excl9to10": {
+    "auroc": 0.6533,
+    "ci95": [
+     0.6167,
+     0.69
+    ]
+   },
+   "FLAG_joint_not_above_shortcut": false
+  },
+  "drivedreamer2": {
+   "n_gen": 150,
+   "spatial": {
+    "auroc": 0.6523,
+    "ci95": [
+     0.5888,
+     0.7165
+    ],
+    "verdict": "weak"
+   },
+   "temporal": {
+    "auroc": 0.5522,
+    "ci95": [
+     0.4854,
+     0.6176
+    ],
+    "verdict": "near-chance"
+   },
+   "joint": {
+    "auroc": 0.6176,
+    "ci95": [
+     0.5559,
+     0.6811
+    ],
+    "verdict": "weak"
+   },
+   "shortcut_nrepeats": {
+    "auroc": 0.81,
+    "ci95": [
+     0.7528,
+     0.8639
+    ]
+   },
+   "shortcut_nrepeats_excl9to10": {
+    "auroc": 0.5353,
+    "ci95": [
+     0.4836,
+     0.5893
+    ]
+   },
+   "FLAG_joint_not_above_shortcut": false
+  }
+ },
+ "elapsed_s": 221.8
+}
