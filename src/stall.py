@@ -11,6 +11,7 @@ from sklearn.covariance import LedoitWolf
 from sklearn.metrics import roc_auc_score
 
 BACKBONES = {"dinov3_s16": "facebook/dinov3-vits16-pretrain-lvd1689m",  # primary (pre-registered)
+             "dinov3_b16": "facebook/dinov3-vitb16-pretrain-lvd1689m",              # Block 7 ablation only
              "dinov2_b14": "facebook/dinov2-base",                       # pre-registered rerun
              "dinov2_s14": "facebook/dinov2-small"}                      # dry-run / plumbing only
 
@@ -121,14 +122,14 @@ def keep_mask(path, cache_dir):
         np.save(c, np.array(k))
     return np.load(c)
 
-def extract(paths, backbone, cache_dir):
+def extract(paths, backbone, cache_dir, load=True):
     sys.path.insert(0, os.path.dirname(__file__)); from features import Backbone
     os.makedirs(cache_dir, exist_ok=True); bb = None; out = []
     for p in paths:
         c = os.path.join(cache_dir, os.path.basename(os.path.dirname(p)) + "__" + os.path.basename(p) + ".npy")
         if not os.path.exists(c):
             bb = bb or Backbone(BACKBONES[backbone]); np.save(c, bb(clip_frames(p))[0].astype(np.float16))
-        out.append(np.load(c).astype(np.float32))
+        if load: out.append(np.load(c).astype(np.float32))
     return out
 
 def main():
