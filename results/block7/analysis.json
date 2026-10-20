@@ -1,0 +1,214 @@
+{
+ "2_sample_efficiency": {
+  "protocol": "k gen clips per generator (k=150: bootstrap w/ replacement), 200 resamples; real reference = all 150 gt for FVD/FD; rho vs the same metric's full-n ranking over 6 generators",
+  "by_k": {
+   "5": {
+    "ours": {
+     "median": 0.543,
+     "iqr": [
+      0.257,
+      0.771
+     ],
+     "mean": 0.472,
+     "sd": 0.358,
+     "p_rho_eq_1": 0.01
+    },
+    "FVD_I3D": {
+     "median": 0.543,
+     "iqr": [
+      0.314,
+      0.771
+     ],
+     "mean": 0.508,
+     "sd": 0.315,
+     "p_rho_eq_1": 0.015
+    },
+    "FD_DINOv3": {
+     "median": 0.143,
+     "iqr": [
+      -0.143,
+      0.429
+     ],
+     "mean": 0.085,
+     "sd": 0.45,
+     "p_rho_eq_1": 0.0
+    }
+   },
+   "10": {
+    "ours": {
+     "median": 0.657,
+     "iqr": [
+      0.486,
+      0.829
+     ],
+     "mean": 0.622,
+     "sd": 0.254,
+     "p_rho_eq_1": 0.03
+    },
+    "FVD_I3D": {
+     "median": 0.771,
+     "iqr": [
+      0.6,
+      0.886
+     ],
+     "mean": 0.744,
+     "sd": 0.201,
+     "p_rho_eq_1": 0.06
+    },
+    "FD_DINOv3": {
+     "median": 0.429,
+     "iqr": [
+      0.086,
+      0.6
+     ],
+     "mean": 0.391,
+     "sd": 0.352,
+     "p_rho_eq_1": 0.02
+    }
+   },
+   "25": {
+    "ours": {
+     "median": 0.771,
+     "iqr": [
+      0.643,
+      0.886
+     ],
+     "mean": 0.743,
+     "sd": 0.205,
+     "p_rho_eq_1": 0.075
+    },
+    "FVD_I3D": {
+     "median": 0.943,
+     "iqr": [
+      0.871,
+      0.943
+     ],
+     "mean": 0.905,
+     "sd": 0.088,
+     "p_rho_eq_1": 0.205
+    },
+    "FD_DINOv3": {
+     "median": 0.943,
+     "iqr": [
+      0.829,
+      0.943
+     ],
+     "mean": 0.876,
+     "sd": 0.123,
+     "p_rho_eq_1": 0.175
+    }
+   },
+   "50": {
+    "ours": {
+     "median": 0.943,
+     "iqr": [
+      0.829,
+      0.943
+     ],
+     "mean": 0.883,
+     "sd": 0.11,
+     "p_rho_eq_1": 0.18
+    },
+    "FVD_I3D": {
+     "median": 0.943,
+     "iqr": [
+      0.943,
+      1.0
+     ],
+     "mean": 0.958,
+     "sd": 0.054,
+     "p_rho_eq_1": 0.475
+    },
+    "FD_DINOv3": {
+     "median": 1.0,
+     "iqr": [
+      0.943,
+      1.0
+     ],
+     "mean": 0.981,
+     "sd": 0.032,
+     "p_rho_eq_1": 0.71
+    }
+   },
+   "150": {
+    "ours": {
+     "median": 0.943,
+     "iqr": [
+      0.943,
+      1.0
+     ],
+     "mean": 0.933,
+     "sd": 0.084,
+     "p_rho_eq_1": 0.34
+    },
+    "FVD_I3D": {
+     "median": 1.0,
+     "iqr": [
+      0.943,
+      1.0
+     ],
+     "mean": 0.962,
+     "sd": 0.052,
+     "p_rho_eq_1": 0.515
+    },
+    "FD_DINOv3": {
+     "median": 1.0,
+     "iqr": [
+      1.0,
+      1.0
+     ],
+     "mean": 0.988,
+     "sd": 0.023,
+     "p_rho_eq_1": 0.785
+    }
+   }
+  }
+ },
+ "1_baselines": {
+  "values": {
+   "FVD_I3D": {
+    "magicdrive": 660.8973287220986,
+    "drivedreamer2": 339.13244522860543,
+    "opendwm": 413.6957883307596,
+    "xscene": 591.6439855719995,
+    "dreamforge": 676.3252010755468,
+    "dist4d": 226.9230885503162
+   },
+   "FD_DINOv3": {
+    "magicdrive": 3.2252093008873786,
+    "drivedreamer2": 1.4477987324103452,
+    "opendwm": 2.313119469830461,
+    "xscene": 3.1048541194597936,
+    "dreamforge": 2.7752439206168398,
+    "dist4d": 0.7419303673389377
+   },
+   "ours_mean_clip_joint": {
+    "magicdrive": 2.691604121403889,
+    "drivedreamer2": 1.4921329467810793,
+    "opendwm": 1.2517211328756064,
+    "xscene": 1.7535326554594395,
+    "dreamforge": 1.940513818282628,
+    "dist4d": 1.1071547443398237
+   }
+  },
+  "gt_half_vs_half_floor (75 vs 75)": {
+   "FVD_I3D": 619.3750379785391,
+   "FD_DINOv3": 3.4487272807259486
+  },
+  "spearman_n6": {
+   "FVD_I3D": {
+    "vs_WorldLens_FVD": 0.8857142857142858,
+    "vs_ours": 0.8857142857142858
+   },
+   "FD_DINOv3": {
+    "vs_WorldLens_FVD": 0.8857142857142858,
+    "vs_ours": 0.8857142857142858
+   },
+   "ours_mean_clip_joint": {
+    "vs_WorldLens_FVD": 1.0,
+    "vs_ours": 1.0
+   }
+  },
+  "notes": "FVD-I3D: StyleGAN-V i3d_torchscript (400-d), 150 gt vs 150 gen clips, 16 frames @456x256 resized to 224. FID: pytorch-fid InceptionV3 pool3, frames 0,4,8,12 per clip (600 vs 600). FD-DINOv3: clip vec = [mean patch token over 15 frames (pos10 dropped); mean |delta| over 14 deltas], 768-d, n=150 (cov rank-deficient)."
+ }
+}
