@@ -32,3 +32,23 @@ def test_dedupe_removes_duplicate_artifact():
     m = STALL().fit(clean)
     plain = m.scores(dup)["temporal"]; dd = m.scores(dup, keep)["temporal"]; ref = m.scores(clips(40, 0, 2))["temporal"]
     assert abs(auroc_ci(ref, dd, n_boot=50)[0] - 0.5) < 0.2
+from stall import delta_pairs, frame_sel, tdiff, n_repeats
+def test_drop_pos10_counts():
+    assert len(frame_sel(16, True)) == 15 and 10 not in frame_sel(16, True) and len(frame_sel(16)) == 16
+    P = delta_pairs(16, drop_pos10=True); assert len(P) == 14 and (9, 10) not in P and (10, 11) in P
+    assert len(delta_pairs(16)) == 15
+    x = np.arange(16, dtype=float)[:, None, None] * np.ones((16, 2, 3)); assert tdiff(x, drop_pos10=True).shape == (14, 2, 3)
+def test_drop_pos10_with_dedupe():
+    keep = np.ones(16, bool); keep[10] = False          # gt-like duplicate removed by dedupe
+    P = delta_pairs(16, keep, drop_pos10=True); assert all(not (a < 10 <= b) for a, b in P) and len(P) == 13
+def test_drop_pos10_neutralizes_artifact():
+    # real held-out has frame 10 == frame 9 in every clip; fit/gen clean. Amended temporal should be ~chance vs clean.
+    ref = clips(40, 0, 2); dup = []
+    for c in clips(40, 0, 1): c = c.copy(); c[10] = c[9]; dup.append(c)
+    m0 = STALL().fit(clips(60, 0, 0)); m1 = STALL(drop_pos10=True).fit(clips(60, 0, 0))
+    a0 = auroc_ci(m0.scores(dup)["temporal"], m0.scores(ref)["temporal"], n_boot=50)[0]
+    a1 = auroc_ci(m1.scores(dup)["temporal"], m1.scores(ref)["temporal"], n_boot=50)[0]
+    assert abs(a1 - 0.5) < 0.2 and abs(a0 - 0.5) > abs(a1 - 0.5), (a0, a1)
+def test_n_repeats():
+    mae = np.full(15, 5.0); mae[9] = 0.0; mae[3] = 0.5
+    assert n_repeats(mae) == 2 and n_repeats(mae, True) == 1
