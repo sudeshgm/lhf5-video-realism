@@ -1,6 +1,6 @@
-backbone: dinov3_s16            # facebook/dinov3-vits16-pretrain-lvd1689m - PRIMARY, gated (HF 401), awaiting token
+backbone: dinov3_s16            # facebook/dinov3-vits16-pretrain-lvd1689m - PRIMARY, gated; access granted to sudeshgm 2026-10-20
 rerun_backbone_if_chance: dinov2_b14
-dryrun_backbone_plumbing_only: dinov2_s14
+dryrun_backbone_plumbing_only: dinov3_s16   # was dinov2_s14 until Block 2b (2026-10-20)
 frames: 16
 fps: 12
 img_size: 224
