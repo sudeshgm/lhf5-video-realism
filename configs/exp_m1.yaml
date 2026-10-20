@@ -19,4 +19,13 @@ real_fit:
   source: nuscenes v1.0-trainval TRAIN split, 500 scenes x 1 window (first keyframe, 16 consecutive CAM_FRONT)  # ON HOLD
   encode: JPEG -> 1600x900 H.264 CRF18 -> reencode.sh
   dryrun_source: v1.0-mini scenes not in gt (6 scenes, 85 windows)   # PLUMBING ONLY
+prereg_amendment_1:
+  date_ist: "2026-10-20 10:23:24 IST (UTC+05:30)"
+  drop_pos10: true          # PRIMARY: spatial drops frame pos 10 (15 frames); temporal/joint drop delta 9->10 (14 deltas); ALL arms
+  reason: worldbench gt duplicates frame 9 at position 10 in 150/150 clips; absent from fit set -> inflates AUROC
+primary: {backbone: dinov3_s16, fit: fit_resampled, dedupe: false, drop_pos10: true, metric: joint_auroc}
+secondary:
+  - {name: unamended, drop_pos10: false, dedupe: false}
+  - {name: amended_dedupe, drop_pos10: true, dedupe: true}
+  - {name: shortcut_nrepeats, feature: n consecutive pairs MAE<1/255, flag_if_joint_not_above: true}
 stall: {cov: ledoit_wolf, max_tokens: 60000, per_position: false, joint: z_spatial+z_temporal (fit-set z-stats), bootstrap: 1000}

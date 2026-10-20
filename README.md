@@ -40,3 +40,21 @@ A real-only fixed duplicate can inflate the **temporal** score against MagicDriv
 - the `--dedupe` sensitivity run (drops repeated frames in ALL arms before the temporal deltas);
 - the resampled fit set.
 Report both alongside the primary.
+
+## Pre-registration amendment 1: drop position 10 (2026-10-20 10:23:24 IST (UTC+05:30), box clock, IST)
+Made **before any DINOv3 number was computed**. The only numbers seen so far are PLUMBING-ONLY DINOv2-S/14 dry runs.
+
+**What changes:**
+- In EVERY clip of EVERY arm (fit, gt held-out, all generators):
+  - the primary **spatial** score drops frame position 10 (15 frames used);
+  - the primary **temporal** score drops the delta for frame pair 9->10 (14 deltas used);
+  - **joint** = z_spatial + z_temporal on these amended scores.
+- Flag: `src/stall.py --drop-pos10` (default ON). Config: `prereg_amendment_1` in `configs/exp_m1.yaml`.
+- **Primary metric:** DINOv3 ViT-S/16 joint AUROC, fit = `fit_resampled`, no generic dedupe, drop-pos10 ON. The stop rule thresholds are unchanged.
+
+**Secondary reports:**
+1. un-amended (`--no-drop-pos10`);
+2. amended + `--dedupe`. With dedupe, any delta crossing the 9->10 boundary is dropped;
+3. shortcut baseline: AUROC from the number of repeated frames per clip alone (consecutive MAE < 1/255), gt vs each generator, computed with and without the 9->10 pair. If the STALL joint AUROC does not beat it, the result is flagged (`FLAG_joint_not_above_shortcut`).
+
+**Rationale:** worldbench `gt` (the real held-out arm) duplicates frame 9 at position 10 in 150/150 clips, a pipeline artifact. That duplicate is absent from the fit set (and from MagicDrive gen0), so an untouched temporal or joint score could separate the arms on this artifact rather than on realism, inflating AUROC. Dropping position 10 symmetrically in all arms removes the artifact without looking at DINOv3 outcomes.
