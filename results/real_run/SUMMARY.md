@@ -1,5 +1,7 @@
 # LHF-5 REAL RUN: DINOv3 ViT-S/16 (2026-10-20, IST)
 
+## KILL-TEST VERDICT: **NOT DEAD**. MagicDrive ALIVE (joint 0.804); DD2 WEAK (joint 0.618).
+
 - **Fit:** data/fit_500 (500 nuScenes TRAIN scenes; no val/gt overlap). **Held-out:** 150 worldbench gt (val). **Gen:** MagicDrive gen0 150, DD2 gen0 150. worldbench rev 63217f28.
 - **PRIMARY** = row 'primary', joint column (fit_resampled, no dedupe, drop-pos10 ON). AUROC has a 1000x bootstrap 95% CI. The shortcut column is the n-repeats AUROC, excluding pair 9->10 when drop-pos10 is ON.
 - **Stop rule:** README names no single primary generator, so it is applied to both. MagicDrive 0.804 -> **ALIVE**; DD2 0.618 -> **WEAK**. Neither is <0.60, so the dinov2_b14 rerun is **not triggered**.

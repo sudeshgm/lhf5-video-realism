@@ -58,3 +58,11 @@ Made **before any DINOv3 number was computed**. The only numbers seen so far are
 3. shortcut baseline: AUROC from the number of repeated frames per clip alone (consecutive MAE < 1/255), gt vs each generator, computed with and without the 9->10 pair. If the STALL joint AUROC does not beat it, the result is flagged (`FLAG_joint_not_above_shortcut`).
 
 **Rationale:** worldbench `gt` (the real held-out arm) duplicates frame 9 at position 10 in 150/150 clips, a pipeline artifact. That duplicate is absent from the fit set (and from MagicDrive gen0), so an untouched temporal or joint score could separate the arms on this artifact rather than on realism, inflating AUROC. Dropping position 10 symmetrically in all arms removes the artifact without looking at DINOv3 outcomes.
+
+## KILL-TEST VERDICT (Experiment -1, 2026-10-20): **NOT DEAD**
+Primary protocol: DINOv3 ViT-S/16, fit_resampled n=500, no dedupe, drop-pos10, joint AUROC with 1000x bootstrap, 150 gt.
+- **MagicDrive gen0: ALIVE**, joint 0.804 [0.747, 0.856].
+- **DriveDreamer-2 gen0: WEAK**, joint 0.618 [0.556, 0.682].
+- The README names no single primary generator, so the stop rule was applied to both. Neither is < 0.60, so the dinov2_b14 rerun was not triggered.
+- The un-amended runs were flagged (the n-repeats shortcut beat the joint score). All amended runs beat the shortcut.
+- Details: `results/real_run/SUMMARY.md`. Robustness pass (same protocol): `results/robustness/SUMMARY.md`.
