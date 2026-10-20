@@ -1,0 +1,106 @@
+{
+ "label": "PLUMBING ONLY - DINOv2-S/14; mini fit_resampled 85 windows/6 scenes; primary",
+ "backbone": "dinov2_s14",
+ "model_id": "facebook/dinov2-small",
+ "per_position": false,
+ "dedupe": false,
+ "drop_pos10": true,
+ "n_fit": 85,
+ "n_real": 150,
+ "feat_shape": [
+  16,
+  256,
+  384
+ ],
+ "lw_shrinkage": {
+  "spatial": 0.00042283382989441725,
+  "temporal": 0.005773326688221135
+ },
+ "gen": {
+  "magicdrive": {
+   "n_gen": 150,
+   "spatial": {
+    "auroc": 0.5659,
+    "ci95": [
+     0.4992,
+     0.6321
+    ],
+    "verdict": "near-chance"
+   },
+   "temporal": {
+    "auroc": 0.836,
+    "ci95": [
+     0.7855,
+     0.8823
+    ],
+    "verdict": "alive"
+   },
+   "joint": {
+    "auroc": 0.7811,
+    "ci95": [
+     0.7228,
+     0.8372
+    ],
+    "verdict": "alive"
+   },
+   "shortcut_nrepeats": {
+    "auroc": 1.0,
+    "ci95": [
+     1.0,
+     1.0
+    ]
+   },
+   "shortcut_nrepeats_excl9to10": {
+    "auroc": 0.6533,
+    "ci95": [
+     0.6167,
+     0.69
+    ]
+   },
+   "FLAG_joint_not_above_shortcut": false
+  },
+  "drivedreamer2": {
+   "n_gen": 150,
+   "spatial": {
+    "auroc": 0.5524,
+    "ci95": [
+     0.4877,
+     0.6199
+    ],
+    "verdict": "near-chance"
+   },
+   "temporal": {
+    "auroc": 0.4987,
+    "ci95": [
+     0.4318,
+     0.5627
+    ],
+    "verdict": "near-chance"
+   },
+   "joint": {
+    "auroc": 0.5484,
+    "ci95": [
+     0.4865,
+     0.6153
+    ],
+    "verdict": "near-chance"
+   },
+   "shortcut_nrepeats": {
+    "auroc": 0.81,
+    "ci95": [
+     0.7528,
+     0.8639
+    ]
+   },
+   "shortcut_nrepeats_excl9to10": {
+    "auroc": 0.5353,
+    "ci95": [
+     0.4836,
+     0.5893
+    ]
+   },
+   "FLAG_joint_not_above_shortcut": false
+  }
+ },
+ "elapsed_s": 64.4
+}
