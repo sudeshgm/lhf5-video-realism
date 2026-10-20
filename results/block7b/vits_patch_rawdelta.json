@@ -1,0 +1,88 @@
+{
+ "vits16crop|patch|nusc500|maxmin|d10=False|rawdelta": {
+  "n_per_arm": 150,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.7776,
+    "spatial": 0.5728,
+    "temporal": 0.774,
+    "mean_gen_score": 0.21698666666666663
+   },
+   "dreamforge": {
+    "joint": 0.7730222222222222,
+    "spatial": 0.5667555555555556,
+    "temporal": 0.7739111111111111,
+    "mean_gen_score": 0.21907333333333331
+   },
+   "xscene": {
+    "joint": 0.6989333333333334,
+    "spatial": 0.4092888888888889,
+    "temporal": 0.8103555555555556,
+    "mean_gen_score": 0.2758666666666667
+   },
+   "drivedreamer2": {
+    "joint": 0.6596,
+    "spatial": 0.615911111111111,
+    "temporal": 0.5997777777777779,
+    "mean_gen_score": 0.2934333333333333
+   },
+   "opendwm": {
+    "joint": 0.5644666666666667,
+    "spatial": 0.5499111111111111,
+    "temporal": 0.5421333333333334,
+    "mean_gen_score": 0.3571466666666666
+   },
+   "dist4d": {
+    "joint": 0.5516888888888889,
+    "spatial": 0.5145333333333333,
+    "temporal": 0.5542666666666667,
+    "mean_gen_score": 0.3646266666666667
+   }
+  },
+  "rho_auroc_vs_fvd": 1.0,
+  "rho_meanscore_vs_fvd": 1.0
+ },
+ "vits16crop|patch|nusc500|mean|d10=False|rawdelta": {
+  "n_per_arm": 150,
+  "auroc": {
+   "magicdrive": {
+    "joint": 0.8459333333333333,
+    "spatial": 0.6294222222222222,
+    "temporal": 0.8648888888888888,
+    "mean_gen_score": 0.17028000000000001
+   },
+   "dreamforge": {
+    "joint": 0.766311111111111,
+    "spatial": 0.6161333333333333,
+    "temporal": 0.7477777777777778,
+    "mean_gen_score": 0.23712
+   },
+   "xscene": {
+    "joint": 0.7384444444444445,
+    "spatial": 0.47040000000000004,
+    "temporal": 0.8136444444444446,
+    "mean_gen_score": 0.2633333333333333
+   },
+   "drivedreamer2": {
+    "joint": 0.6480444444444444,
+    "spatial": 0.6522666666666667,
+    "temporal": 0.5733777777777778,
+    "mean_gen_score": 0.31764
+   },
+   "opendwm": {
+    "joint": 0.5833555555555556,
+    "spatial": 0.5653777777777778,
+    "temporal": 0.5559111111111111,
+    "mean_gen_score": 0.3661866666666667
+   },
+   "dist4d": {
+    "joint": 0.5898888888888888,
+    "spatial": 0.5430222222222223,
+    "temporal": 0.5809777777777778,
+    "mean_gen_score": 0.3607666666666666
+   }
+  },
+  "rho_auroc_vs_fvd": 0.942857142857143,
+  "rho_meanscore_vs_fvd": 0.942857142857143
+ }
+}
