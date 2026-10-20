@@ -21,29 +21,29 @@ def load(tag, arm, feat, src=None):
     if src is not None: fs = [f for f in fs if os.path.basename(f)[len(arm)+2:-4] in src]
     return [os.path.basename(f)[len(arm)+2:-4] for f in fs], np.stack([np.load(f)[feat] for f in fs])
 def drop10(E): return np.delete(E, 10, axis=1)
-def tdiff(E, d10):  # L2-normalised diffs; with d10 drop the 9->10 delta (14 deltas) like the primary amendment
-    D = l2(E[:, 1:] - E[:, :-1]); return np.delete(D, 9, axis=1) if d10 else D
+def tdiff(E, d10, raw=False):  # L2-normalised diffs; with d10 drop the 9->10 delta (14 deltas) like the primary amendment
+    D = E[:, 1:] - E[:, :-1]; D = D if raw else l2(D); return np.delete(D, 9, axis=1) if d10 else D
 AG = {"maxmin": (np.max, np.min), "mean": (np.mean, np.mean)}
-def score(params, calib, E, agg, d10):
+def score(params, calib, E, agg, d10, raw=False):
     (ms, Ws), (mt, Wt) = params; fs, ft = AG[agg]
     Es = drop10(E) if d10 else E
-    s = fs(ll((Es - ms) @ Ws), 1); t = ft(ll((tdiff(E, d10) - mt) @ Wt), 1)
+    s = fs(ll((Es - ms) @ Ws), 1); t = ft(ll((tdiff(E, d10, raw) - mt) @ Wt), 1)
     cs, ct = calib; ps = np.searchsorted(np.sort(cs), s, "right") / len(cs); pt = np.searchsorted(np.sort(ct), t, "right") / len(ct)
     return (ps + pt) / 2, s, t
-def run_cell(tag, feat, wh, agg, d10, sub=None):
+def run_cell(tag, feat, wh, agg, d10, sub=None, raw=False):
     names, R = load(tag, "gt", feat, sub)
     if wh == "vatex":
         params = ((VATEX["mu_spat"], VATEX["W_spat"]), (VATEX["mu_temp"], VATEX["W_temp"]))
         fs, ft = AG[agg]; calib = (fs(VATEX["calib_ll_spat"], 1), ft(VATEX["calib_ll_temp"], 1))
     else:
         _, F = load(tag, "fit_resampled", feat)
-        Fs = drop10(F) if d10 else F; Ft = tdiff(F, d10)
+        Fs = drop10(F) if d10 else F; Ft = tdiff(F, d10, raw)
         params = (fitW(Fs.reshape(-1, F.shape[-1])), fitW(Ft.reshape(-1, F.shape[-1])))
-        _, cs, ct = score(params, (np.zeros(1), np.zeros(1)), F, agg, d10); calib = (cs, ct)  # in-sample calibration (fit set)
-    r, rs, rt = score(params, calib, R, agg, d10); res = {}
+        _, cs, ct = score(params, (np.zeros(1), np.zeros(1)), F, agg, d10, raw); calib = (cs, ct)  # in-sample calibration (fit set)
+    r, rs, rt = score(params, calib, R, agg, d10, raw); res = {}
     for g in GENS:
         gn, G = load(tag, g, feat, sub); assert gn == names
-        f, fs_, ft_ = score(params, calib, G, agg, d10); y = np.r_[np.ones(len(r)), np.zeros(len(f))]
+        f, fs_, ft_ = score(params, calib, G, agg, d10, raw); y = np.r_[np.ones(len(r)), np.zeros(len(f))]
         res[g] = {"joint": roc_auc_score(y, np.r_[r, f]), "spatial": roc_auc_score(y, np.r_[rs, fs_]), "temporal": roc_auc_score(y, np.r_[rt, ft_]), "mean_gen_score": float(f.mean())}
     rho = spearmanr([res[g]["joint"] for g in GENS], [FVD[g] for g in GENS])[0]
     rho_mean = spearmanr([-res[g]["mean_gen_score"] for g in GENS], [FVD[g] for g in GENS])[0]
@@ -60,11 +60,14 @@ if __name__ == "__main__":
             for wh in (("vatex", "nusc") if feat == "cls" else ("nusc",)):
                 for agg in AG:
                     for d10 in (False, True): out[f"vitl16|{feat}|{wh}|{agg}|d10={d10}"] = run_cell("vitl16", feat, wh, agg, d10)
+        for agg in AG: out[f"vitl16|pmean|nusc|{agg}|d10=False|rawdelta"] = run_cell("vitl16", "pmean", "nusc", agg, False, raw=True)
+        pc = os.path.join(OUT, "vitl_patch_cells.json")
+        if os.path.exists(pc): out.update(json.load(open(pc)))
     else:
         for feat in ("cls", "pmean"):
             for agg in AG:
                 for d10 in (False, True): out[f"vits16|{feat}|nusc|{agg}|d10={d10}"] = run_cell("vits16", feat, "nusc", agg, d10)
     out = {k: v for k, v in out.items() if v is not None}
-    json.dump(out, open(f"{OUT}/{which}.json", "w"), indent=1)
+    json.dump(out, open(os.environ.get("B7B_OUT", f"{OUT}/{which}.json"), "w"), indent=1)
     for k, v in out.items():
         print(k, "n=%d" % v["n_per_arm"], " ".join(f"{g[:5]}={v['auroc'][g]['joint']:.3f}" for g in GENS), f"rho={v['rho_auroc_vs_fvd']:.2f} rhoM={v['rho_meanscore_vs_fvd']:.2f}")

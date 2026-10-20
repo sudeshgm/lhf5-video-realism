@@ -30,11 +30,11 @@ def agg(S_, T_, a, d10):
     if d10: S_, T_ = np.delete(S_, 10, 1), np.delete(T_, 9, 1)
     return AG[a][0](S_, 1), AG[a][1](T_, 1)
 out = {}
-for mode in ("pmean", "patch"):
+for mode in os.environ.get("MODES", "pmean,patch").split(","):
     P = fitP(files("fit_resampled"), mode); Fs, Ft = lls(files("fit_resampled"), mode, P)
     R = lls(files("gt"), mode, P); G = {g: lls(files(g), mode, P) for g in GENS}
-    for a in AG:
-        for d10 in (False, True):
+    for a in os.environ.get("AGGS", "maxmin,mean").split(","):
+        for d10 in [x == "True" for x in os.environ.get("D10S", "False,True").split(",")]:
             cs, ct = agg(Fs, Ft, a, d10); pc = lambda s, t: (np.searchsorted(np.sort(cs), s, "right")/len(cs) + np.searchsorted(np.sort(ct), t, "right")/len(ct))/2
             rs, rt = agg(*R, a, d10); r = pc(rs, rt); res = {}
             for g in GENS:
@@ -44,4 +44,4 @@ for mode in ("pmean", "patch"):
             out[k] = {"n_per_arm": len(r), "auroc": res, "rho_auroc_vs_fvd": spearmanr([res[g]["joint"] for g in GENS], [FVD[g] for g in GENS])[0],
                       "rho_meanscore_vs_fvd": spearmanr([-res[g]["mean_gen_score"] for g in GENS], [FVD[g] for g in GENS])[0]}
             v = out[k]; print(k, " ".join(f"{g[:5]}={v['auroc'][g]['joint']:.3f}" for g in GENS), f"rho={v['rho_auroc_vs_fvd']:.2f} rhoM={v['rho_meanscore_vs_fvd']:.2f}", flush=True)
-json.dump(out, open(f"{OUT}/patch_cache{'_rawdelta' if RAW else ''}.json", "w"), indent=1)
+json.dump(out, open(os.environ.get("PATCH_OUT", f"{OUT}/patch_cache{'_rawdelta' if RAW else ''}.json"), "w"), indent=1)
